@@ -71,18 +71,21 @@ func part1() {
 }
 
 func part2() {
-	ranges, _ := getRange(ReadFile("./example"))
+	ranges, _ := getRange(ReadFile("./input"))
 	var answer uint64 = 0
 	var maxVal uint64 = ranges[0][1]
 	var minVal uint64 = ranges[0][0]
 
 	for _, r := range ranges {
-		canMerge := r[0] <= maxVal
+		canMerge := (r[0] - 1) <= maxVal
 
 		if canMerge {
-			maxVal = r[1]
+			if r[1] > maxVal {
+				maxVal = r[1]
+			}
 		} else {
 			answer += maxVal - minVal + 1
+
 			minVal = r[0]
 			maxVal = r[1]
 		}

@@ -72,9 +72,7 @@ func part2() {
 	input := ReadFile("./input")
 	answer := 0
 
-	var numAccessPaper int
-	for answer == 0 || numAccessPaper != 0 {
-		numAccessPaper = 0
+	for true {
 		pos := make(map[int][]int)
 		for y, v := range input {
 
@@ -85,7 +83,6 @@ func part2() {
 
 				if CanAccess(input, x-1, y-1, x+1, y+1) {
 					pos[y*10+x] = []int{y, x}
-					numAccessPaper++
 				}
 			}
 		}
@@ -94,7 +91,10 @@ func part2() {
 			input[p[0]][p[1]] = '.'
 		}
 
-		answer += numAccessPaper
+		if len(pos) == 0 {
+			break
+		}
+		answer += len(pos)
 	}
 
 	fmt.Println(answer)
